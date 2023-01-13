@@ -28,6 +28,10 @@
   <?endif?>
   <?define BinX32Dir="$(var.RepoDir)x86\$(var.Configuration)\" ?>
   <?define ShortcutGuideExecutable=$(var.BinDir)\modules\ShortcutGuide\ShortcutGuide?>
+
+  <?define ShortcutGuideSvgsFilesPath=$(var.BinDir)\modules\ShortcutGuide\ShortcutGuide\svgs?>
+  <?define FancyZonesFilesPath=$(var.BinDir)modules\$(var.FancyZonesProjectName)?>
+
   <?define ShortcutGuideModuleInterface=$(var.BinDir)\modules\ShortcutGuide\ShortcutGuideModuleInterface?>
 
   <!-- WiX Components with multiple files cause issues due to the way Windows installs them. 
@@ -770,20 +774,12 @@
 
     <!-- Shortcut guide files -->
     <DirectoryRef Id="ShortcutGuideSvgsInstallFolder" FileSource="$(var.ShortcutGuideExecutable)\svgs\">
-      <?foreach File in $(var.ShortcutGuideSvgsFiles)?>
-      <Component Id="ShortcutGuideSvgs_$(var.File)" Win64="yes">
-        <File Source="$(var.ShortcutGuideExecutable)\svgs\$(var.File)" />
-      </Component>
-      <?endforeach?>
+    <!--ShortcutGuideSvgsFiles_Component_Def-->
     </DirectoryRef>
 
     <!-- FancyZone -->
     <DirectoryRef Id="FancyZonesInstallFolder" FileSource="$(var.BinDir)modules\">
-      <?foreach File in $(var.FancyZonesFiles)?>
-      <Component Id="Module_FancyZones_$(var.File)" Win64="yes">
-        <File Id="Module_FancyZones_File_$(var.File)" Source="$(var.BinDir)modules\$(var.FancyZonesProjectName)\$(var.File)" />
-      </Component>
-      <?endforeach?>
+    <!--FancyZonesFiles_Component_Def-->
     </DirectoryRef>
 
     <DirectoryRef Id="ToolsFolder">
@@ -1336,14 +1332,14 @@
       <ComponentRef Id="License_rtf" />
       <ComponentRef Id="Notice_md" />
       <?foreach File in $(var.ShortcutGuideSvgsFiles)?>
-      <ComponentRef Id="ShortcutGuideSvgs_$(var.File)" />
+      <ComponentRef Id="ShortcutGuideSvgsFiles_Comp_$(var.File)" />
       <?endforeach?>
       <ComponentRef Id="Module_ShortcutGuideModuleInterface" />
       <ComponentRef Id="Module_ShortcutGuideExecutable" />
       <ComponentRef Id="Module_VideoConference" />
       <ComponentRef Id="Module_VideoConferenceIcons" />
       <?foreach File in $(var.FancyZonesFiles)?>
-      <ComponentRef Id="Module_FancyZones_$(var.File)" />
+      <ComponentRef Id="FancyZonesFiles_Comp_$(var.File)" />
       <?endforeach?>
       <ComponentRef Id="DesktopShortcut" />
       <ComponentRef Id="Module_PowerRename" />

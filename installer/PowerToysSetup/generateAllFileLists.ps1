@@ -1,0 +1,2 @@
+Invoke-Expression -Command '.\generateFileListComponent.ps1 -fileListName "ShortcutGuideSvgsFiles" -productwxsPath ".\Product.wxs"'
+Invoke-Expression -Command '.\generateFileListComponent.ps1 -fileListName "FancyZonesFiles" -productwxsPath ".\Product.wxs"'
