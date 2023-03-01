@@ -409,6 +409,14 @@ jobs:
       script: git clean -xfd  -e *exe -- .\installer\
       pwsh: true
 
+  - task: NuGetCommand@2
+    displayName: NuGet restore solutions dependencies
+    inputs:
+      command: restore
+      restoreSolution: 'installer/*.sln'
+      selectOrConfig: config
+      nugetConfigPath: .pipelines/release-nuget.config
+
   - template: installer-steps.yml
     parameters:
       versionNumber: ${{ parameters.versionNumber }}
